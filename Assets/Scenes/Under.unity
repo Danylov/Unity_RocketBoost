@@ -354,10 +354,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Landing Pad
       objectReference: {fileID: 0}
-    - target: {fileID: 2073614802087146271, guid: 8c773924ff0c8cb47b74cc519eef714c, type: 3}
-      propertyPath: m_TagString
-      value: Finish
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c773924ff0c8cb47b74cc519eef714c, type: 3}
 --- !u!1001 &2073614802999872343
@@ -411,10 +407,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2073614802087146269, guid: 8c773924ff0c8cb47b74cc519eef714c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0f074ae79e6cd2b4982d87f6aeb0f17b, type: 2}
     - target: {fileID: 2073614802087146271, guid: 8c773924ff0c8cb47b74cc519eef714c, type: 3}
       propertyPath: m_Name
       value: Launch Pad
@@ -489,17 +481,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7362789921345329361, guid: 1b0d995e98035264a9540010a4ad1652, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b9a7ae488c48b20438dcc959afa6f4c7, type: 2}
     - target: {fileID: 7362789921345329363, guid: 1b0d995e98035264a9540010a4ad1652, type: 3}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7362789921345329363, guid: 1b0d995e98035264a9540010a4ad1652, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7362789921345329363, guid: 1b0d995e98035264a9540010a4ad1652, type: 3}
       propertyPath: m_LocalPosition.x
@@ -543,10 +527,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7362789921345329375, guid: 1b0d995e98035264a9540010a4ad1652, type: 3}
       propertyPath: m_Name
-      value: Obstacle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7362789921345329375, guid: 1b0d995e98035264a9540010a4ad1652, type: 3}
-      propertyPath: m_TagString
       value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []

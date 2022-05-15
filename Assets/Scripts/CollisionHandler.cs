@@ -4,60 +4,64 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-   [SerializeField] float leveLoadDelay = 2.0f;
-   [SerializeField] private AudioClip success;
-   [SerializeField] private AudioClip crash;
-   private AudioSource audioSource;
+    [SerializeField] float leveLoadDelay = 2.0f;
+    [SerializeField] private AudioClip success;
+    [SerializeField] private AudioClip crash;
+    AudioSource audioSource;
+    bool isTransitioning = false;
 
-   void Start()
-   {
-      audioSource = GetComponent<AudioSource>();
-   }
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
-   void OnCollisionEnter(Collision other)
-   {
-      switch (other.gameObject.tag)
-      {
-         case "Start": 
-            Debug.Log("This thing is your stat point"); 
-            break;
-         case "Finish":
-            StartSuccessSequence();
-            break;
-         case "Obstacle": 
-            Debug.Log("You hit an obstacle!");
-            goto default;
-         default:
-            StartCrashSequence();
-            break;
-      }   
-   }
+    void OnCollisionEnter(Collision other)
+    {
+        if (isTransitioning) return;
+        switch (other.gameObject.tag)
+        {
+            case "Start": 
+                Debug.Log("This thing is your stat point"); 
+                break;
+            case "Finish":
+                StartSuccessSequence();
+                break;
+            case "Obstacle": 
+                Debug.Log("You hit an obstacle!");
+                goto default;
+            default:
+                StartCrashSequence();
+                break;
+        } 
+    }
 
-   void LoadNextLevel()
-   {
-      int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-      int nextSceneIndex = currentSceneIndex + 1;
-      if (nextSceneIndex == SceneManager.sceneCountInBuildSettings) nextSceneIndex = 0;
-      SceneManager.LoadScene(nextSceneIndex);
-   }
+    void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings) nextSceneIndex = 0;
+        SceneManager.LoadScene(nextSceneIndex);
+    }
 
-   void ReloadLevel()
-   {
-      int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; 
-      SceneManager.LoadScene(currentSceneIndex);
-   }
+    void ReloadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; 
+        SceneManager.LoadScene(currentSceneIndex);
+    }
 
-   void StartCrashSequence()
-   {
-      audioSource.PlayOneShot(crash);
-      GetComponent<Movement>().enabled = false;
-      Invoke(nameof(ReloadLevel), leveLoadDelay);
-   }
+    void StartCrashSequence()
+    {
+        isTransitioning = true;
+        audioSource.PlayOneShot(crash);
+        GetComponent<Movement>().enabled = false;
+        Invoke(nameof(ReloadLevel), leveLoadDelay);
+    }
 
-   void StartSuccessSequence()
-   {
-      audioSource.PlayOneShot(success);
-      GetComponent<Movement>().enabled = false;
-      Invoke(nameof(LoadNextLevel), leveLoadDelay); 
-   }
+    void StartSuccessSequence()
+    {
+        isTransitioning = true;
+        audioSource.PlayOneShot(success);
+        GetComponent<Movement>().enabled = false;
+        Invoke(nameof(LoadNextLevel), leveLoadDelay); 
+    }
 }
