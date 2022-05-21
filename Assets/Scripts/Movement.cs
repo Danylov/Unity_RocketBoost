@@ -1,16 +1,25 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float mainThrust = 1000.0f;
-    [SerializeField] private float rotationThrust = 100.0f;
-    [SerializeField] private AudioClip mainEngine;
-    [SerializeField] private ParticleSystem MainBooster;
-    [SerializeField] private ParticleSystem LeftBooster;
-    [SerializeField] private ParticleSystem RightBooster;
-    private Rigidbody rb;
-    private AudioSource audioSource;
-    
+    //PARAMETERS - for tuning, typically set in the editor
+    //CACHE - e.g.references or readability or speed
+    //STATE - private instance (member) variables
+
+    [SerializeField] float mainThrust = 500f;
+    [SerializeField] float rotationThrust = 50f;
+    [SerializeField] AudioClip mainEngine;
+
+    [SerializeField] ParticleSystem MainBooster;
+    [SerializeField] ParticleSystem LeftBooster;
+    [SerializeField] ParticleSystem RightBooster;
+
+    Rigidbody rb;
+    AudioSource audioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,13 +45,13 @@ public class Movement : MonoBehaviour
         else StopRotating();
     }
 
-    private void StartThrusting()
+    void StartThrusting()
     {
         rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
         if (!audioSource.isPlaying) audioSource.PlayOneShot(mainEngine);
         if (!MainBooster.isPlaying) MainBooster.Play();
     }
-    
+
     private void StopThrusting()
     {
         audioSource.Stop();
@@ -66,8 +75,8 @@ public class Movement : MonoBehaviour
         RightBooster.Stop();
         LeftBooster.Stop();
     }
-    
-    private void ApplyRotation(float rotationThisFrame)
+
+    void ApplyRotation(float rotationThisFrame)
     {
         rb.freezeRotation = true;
         transform.Rotate(Vector3.forward * rotationThisFrame * Time.deltaTime);

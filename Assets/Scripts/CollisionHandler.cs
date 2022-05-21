@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,14 +10,33 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] private ParticleSystem successParticles;
     [SerializeField] private ParticleSystem crashParticles;
     AudioSource audioSource;
-    bool isTransitioning = false;
 
-    void Start()
+    bool isTransitioning = false;
+    bool collisionDisabled = false;
+
+    void Start() 
     {
         audioSource = GetComponent<AudioSource>();
     }
+    
+    void Update() 
+    {
+        RespondToDebugKeys();    
+    }
 
-    void OnCollisionEnter(Collision other)
+    void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionDisabled = !collisionDisabled;  // toggle collision
+        } 
+    }
+
+    void OnCollisionEnter(Collision other) 
     {
         if (isTransitioning) return;
         switch (other.gameObject.tag)
